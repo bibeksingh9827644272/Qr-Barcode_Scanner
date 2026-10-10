@@ -1,77 +1,31 @@
-🏷️ PROJECT TITLE
-📱 Barcode and QR Code Scanner
+# Scanly — QR Code Scanner
 
+A modern, responsive QR code scanner that runs entirely in the browser. It supports live camera scanning and QR decoding from uploaded images, with URL detection, copy actions, and privacy-first local processing.
 
-Live Barcode and QR Code Scanner
+## Features
 
-📖 INTRODUCTION
+- Live camera scanning using `getUserMedia`
+- Image upload and drag-and-drop support
+- QR decoding powered by [jsQR](https://github.com/cozmo/jsQR)
+- URL detection with one-click open action
+- Copy scanned text to clipboard
+- Responsive layout for mobile, tablet, and desktop
+- No backend and no image uploads — processing stays on the device
 
-This project is a Python-based application that performs QR code and barcode scanning tasks. It detects, scans, and displays the encoded information using a webcam. Additionally, it can open links directly in the browser and generate QR codes from user input.
+## Run locally
 
-The entire project is designed to run in a local environment, ensuring proper access to the system camera.
+Because camera APIs require a secure context, use a local HTTP server:
 
-🎯 PURPOSE
+```bash
+python3 -m http.server 8000
+```
 
-QR codes and barcodes are widely used to store information in a compact and machine-readable format. This project demonstrates how we can:
+Then open `http://localhost:8000`.
 
-Decode hidden information inside QR/Barcodes
-Build our own scanner using Python
-Understand real-world applications of computer vision
+## Deployment
 
-The project was developed using Python libraries and executed using tools like VS Code and Git Bash.
+The site is deployed automatically to GitHub Pages from the `main` branch using the workflow in `.github/workflows/deploy.yml`.
 
-🧠 BRIEF EXPLANATION
+## Privacy
 
-QR and barcode readers work by capturing an image and decoding patterns into meaningful data.
-
-For example:
-
-When you point your phone camera at a QR code, it automatically detects and shows a link.
-Similarly, this project uses a webcam to scan and decode QR codes in real time.
-⚙️ WORKING CONDITIONS
-🔹 Setting up the Environment
-Use a local system (recommended)
-Webcam must be available
-Install required Python libraries
-🔹 Importing Required Packages
-
-The project uses multiple libraries for image processing and decoding:
-
-OpenCV → Camera handling
-Pyzbar → QR/Barcode decoding
-Tkinter → GUI
-Pillow → Image processing
-qrcode → QR generation
-🔹 Decoding Function
-Detects QR/Barcode from camera frame
-Extracts encoded data
-Displays detected result on screen
-Optionally opens links in browser
-
-📌 Code reference:
-
-🔹 QR Generator Function
-Takes input from user
-Converts it into QR format
-Saves as image file
-
-📌 Code reference:
-
-🔹 Main Function
-Starts webcam using OpenCV
-Continuously scans frames
-Calls decoding function
-Updates GUI in real time
-🔹 Testing
-Run the scanner
-Show QR/Barcode to camera
-Output will be displayed instantly
-▶️ USAGE
-🔸 Run QR Generator
-python qr_generator.py
-🔸 Run QR Scanner
-python scanner.py
-🎮 Controls
-Start Camera
-Stop Camera
-Open Link
+Camera frames and uploaded images are decoded locally in the browser. They are not sent to a server by this project. The jsQR library is loaded from jsDelivr.
