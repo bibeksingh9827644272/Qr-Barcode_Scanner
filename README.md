@@ -32,7 +32,7 @@ The Scan QR → Upload image mode includes a dedicated **Choose image** button a
 
 ## Privacy
 
-Camera frames, uploaded images, and generated data are processed locally in the browser. No application backend receives your content. The scanner uses jsQR and the generator uses QRious from jsDelivr.
+Camera frames, uploaded images, and generated data are processed locally in the browser. No application backend receives your content. The jsQR and QRious libraries are bundled locally so the installed app can generate and scan without waiting for a CDN.
 
 ## Run locally
 
