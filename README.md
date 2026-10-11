@@ -16,12 +16,17 @@ SmartQR is a modern, privacy-first QR toolkit for scanning and generating QR cod
 
 ### Generate QR
 
-- Generate QR codes from links, text, Wi-Fi strings, and email content
+- Generate QR codes from arbitrary text, long links, Wi-Fi strings, email content, and contact details
+- Supports up to 3,000 characters with a clear capacity warning
 - Preset examples for Website, Wi-Fi, and Email
 - Custom QR and background colors
 - Adjustable output size from 180px to 640px
 - High-error-correction output suitable for sharing and printing
 - Download as PNG or copy the original content
+
+### Image upload
+
+The Scan QR → Upload image mode includes a dedicated **Choose image** button as well as drag-and-drop. It accepts PNG, JPG, WEBP, and GIF images up to 10 MB and decodes them locally.
 
 ## Privacy
 
