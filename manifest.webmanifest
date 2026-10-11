@@ -1,0 +1,16 @@
+{
+  "name": "SmartQR — Scan & Generate QR Codes",
+  "short_name": "SmartQR",
+  "description": "Scan and generate QR codes privately on your device.",
+  "start_url": "./?app=smartqr",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#060d1c",
+  "theme_color": "#08111f",
+  "lang": "en",
+  "categories": ["utilities", "productivity"],
+  "icons": [
+    { "src": "assets/smartqr-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -12,6 +12,7 @@ let lastScanTick = performance.now();
 let lastValue = '';
 let duplicateBlockedUntil = 0;
 let qrCode = null;
+let installPrompt = null;
 
 const getHistory = () => { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; } };
 const saveHistory = (items) => localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(0, 20)));
@@ -88,7 +89,11 @@ function generateQrCode() {
 }
 function downloadQrCode() { if (!qrCode) return; const a = document.createElement('a'); a.download = `smartqr-${Date.now()}.png`; a.href = $('qrCanvas').toDataURL('image/png'); a.click(); }
 
+window.addEventListener('beforeinstallprompt', (event) => { event.preventDefault(); installPrompt = event; $('installButton').hidden = false; });
+window.addEventListener('appinstalled', () => { installPrompt = null; $('installButton').hidden = true; });
+
 $('scannerModule').addEventListener('click', () => setModule('scanner')); $('generatorModule').addEventListener('click', () => setModule('generator')); $('startCamera').addEventListener('click', startCamera); $('stopCamera').addEventListener('click', () => { stopCamera(); $('cameraPlaceholder').hidden = false; }); $('switchCamera').addEventListener('click', switchCamera); $('toggleTorch').addEventListener('click', toggleTorch); $('cameraMode').addEventListener('click', () => activateMode('camera')); $('uploadMode').addEventListener('click', () => activateMode('upload')); $('browseImage').addEventListener('click', (event) => { event.preventDefault(); event.stopPropagation(); $('fileInput').click(); }); $('fileInput').addEventListener('change', e => decodeFile(e.target.files[0]));
+$('installButton').addEventListener('click', async () => { if (!installPrompt) return; installPrompt.prompt(); await installPrompt.userChoice; installPrompt = null; $('installButton').hidden = true; });
 $('dropZone').addEventListener('dragover', e => { e.preventDefault(); $('dropZone').classList.add('dragover'); }); $('dropZone').addEventListener('dragleave', () => $('dropZone').classList.remove('dragover')); $('dropZone').addEventListener('drop', e => { e.preventDefault(); $('dropZone').classList.remove('dragover'); decodeFile(e.dataTransfer.files[0]); });
 $('clearImage').addEventListener('click', () => { $('fileInput').value = ''; $('imagePreview').hidden = true; $('dropZone').hidden = false; clearError(); }); $('scanAgain').addEventListener('click', () => { $('fileInput').value = ''; $('imagePreview').hidden = true; $('dropZone').hidden = false; resetScanner(); }); $('copyResult').addEventListener('click', () => copyText(currentValue)); $('shareResult').addEventListener('click', shareResult); $('downloadResult').addEventListener('click', downloadResult); $('clearHistory').addEventListener('click', () => { localStorage.removeItem(HISTORY_KEY); renderHistory(); }); window.addEventListener('pagehide', stopCamera); renderHistory();
 $('generateQr').addEventListener('click', generateQrCode); $('downloadQr').addEventListener('click', downloadQrCode); $('copyQrText').addEventListener('click', () => copyText($('qrInput').value, $('copyQrText'))); $('qrInput').addEventListener('input', () => { $('characterCount').textContent = `${$('qrInput').value.length} / 3000`; }); $('qrSize').addEventListener('input', () => { $('sizeValue').textContent = `${$('qrSize').value}px`; if (qrCode) generateQrCode(); }); $('qrForeground').addEventListener('input', () => { if (qrCode) generateQrCode(); }); $('qrBackground').addEventListener('input', () => { if (qrCode) generateQrCode(); }); document.querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => { $('qrInput').value = chip.dataset.example; $('characterCount').textContent = `${$('qrInput').value.length} / 3000`; generateQrCode(); })); window.addEventListener('pagehide', stopCamera); renderHistory();

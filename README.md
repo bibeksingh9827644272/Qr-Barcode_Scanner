@@ -2,6 +2,8 @@
 
 SmartQR is a modern, privacy-first QR toolkit for scanning and generating QR codes directly in the browser.
 
+It works as both a responsive **website** and an installable **app-style PWA**. On supported browsers, use the **Install app** button or the browser's install option to add SmartQR to your home screen. The app shell is cached for offline launch; camera scanning and external QR libraries still require the relevant browser/device capabilities.
+
 ## Features
 
 ### Scan QR

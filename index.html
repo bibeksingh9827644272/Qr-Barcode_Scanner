@@ -4,14 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#08111f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/smartqr-icon.svg" type="image/svg+xml" />
     <meta name="description" content="SmartQR by Bibek Singh — scan and generate QR codes privately in your browser." />
     <title>SmartQR — Scan & Generate QR Codes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /><link rel="stylesheet" href="styles.css?v=smartqr3" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /><link rel="stylesheet" href="styles.css?v=smartqr4" />
   </head>
   <body>
     <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div><div class="ambient ambient-three"></div><div class="grid-overlay"></div>
-    <header class="site-header"><a class="brand" href="./" aria-label="SmartQR home"><span class="brand-mark">⌁</span><span>Smart<span class="brand-accent">QR</span></span></a><span class="privacy-pill"><span class="status-dot"></span> Private &amp; browser-based</span></header>
+    <header class="site-header"><a class="brand" href="./" aria-label="SmartQR home"><span class="brand-mark">⌁</span><span>Smart<span class="brand-accent">QR</span></span></a><div class="header-actions"><button class="install-button" id="installButton" hidden>Install app</button><span class="privacy-pill"><span class="status-dot"></span> Private &amp; browser-based</span></div></header>
 
     <main class="shell">
       <section class="hero"><p class="eyebrow">SMART QR TOOLKIT</p><h1>Smart<span class="hero-brand-accent">QR</span></h1><p class="hero-subtitle">Scan smarter. Create freely.</p><p class="hero-copy">A beautiful, private QR workspace for scanning codes instantly and generating your own in seconds.</p><div class="hero-credit"><img src="assets/bibek-singh.jpg" alt="Bibek Singh" /><span>Made by <strong>Bibek Singh</strong></span></div></section>
@@ -32,6 +37,7 @@
     </main>
     <aside class="creator-badge"><img src="assets/bibek-singh.jpg" alt="Bibek Singh" /><div><small>Made by</small><strong>Bibek Singh</strong></div></aside>
     <footer>© 2026 SmartQR <span>·</span> Made with care by Bibek Singh</footer>
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script><script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script><script src="app.js?v=smartqr5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script><script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script><script src="app.js?v=smartqr6"></script>
+    <script>if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));</script>
   </body>
 </html>
