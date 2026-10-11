@@ -1,30 +1,30 @@
 # Scanly — QR Code Scanner
 
-A modern, responsive QR code scanner that runs entirely in the browser. It supports live camera scanning and QR decoding from uploaded images, with URL detection, copy actions, and privacy-first local processing.
+A fast, privacy-first QR code scanner that runs in the browser. It handles live camera scans and uploaded images, then gives you useful actions for the result.
 
 ## Features
 
-- Live camera scanning using `getUserMedia`
+- Live camera scanning with automatic QR detection
+- Rear/front camera switching on supported devices
+- Flashlight/torch toggle on supported mobile cameras
+- Optimized frame processing with capped camera resolution
 - Image upload and drag-and-drop support
-- QR decoding powered by [jsQR](https://github.com/cozmo/jsQR)
-- URL detection with one-click open action
-- Copy scanned text to clipboard
-- Responsive layout for mobile, tablet, and desktop
+- Downscaled image decoding for large photos
+- Smart result classification for links, Wi-Fi, contacts, email, phone, and text
+- Open links, copy, share, or download scan results
+- Local scan history with one-click re-open, copy, and clear-all
+- Responsive mobile, tablet, and desktop layout
 - No backend and no image uploads — processing stays on the device
 
 ## Run locally
 
-Because camera APIs require a secure context, use a local HTTP server:
+Camera APIs require a secure context. Use a local HTTP server:
 
 ```bash
 python3 -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
-
-## Deployment
-
-The site is deployed automatically to GitHub Pages from the `main` branch using the workflow in `.github/workflows/deploy.yml`.
 
 ## Privacy
 
