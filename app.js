@@ -85,7 +85,7 @@ function generateQrCode() {
   if (!window.QRious) { status.textContent = 'Generator is still loading. Try again in a moment.'; status.className = 'generator-status warning'; return; }
   try {
     const size = Number($('qrSize').value); qrCode = new QRious({ element: $('qrCanvas'), value, size, level: 'M', foreground: $('qrForeground').value, background: $('qrBackground').value, padding: 12 });
-    $('qrEmpty').hidden = true; $('qrCanvas').hidden = true; $('qrImagePreview').src = $('qrCanvas').toDataURL('image/png'); $('qrImagePreview').hidden = false; $('downloadQr').disabled = false; $('copyQrText').disabled = false; status.textContent = `Preview ready — ${value.length} characters encoded.`; status.className = 'generator-status success';
+    $('qrEmpty').hidden = true; $('qrCanvas').hidden = false; $('qrImagePreview').src = $('qrCanvas').toDataURL('image/png'); $('qrImagePreview').hidden = true; $('downloadQr').disabled = false; $('copyQrText').disabled = false; status.textContent = `Preview ready — ${value.length} characters encoded.`; status.className = 'generator-status success';
   } catch { status.textContent = 'This content is too large for one QR code. Try shortening it.'; status.className = 'generator-status warning'; }
 }
 function downloadQrCode() { if (!qrCode) return; const a = document.createElement('a'); a.download = `smartqr-${Date.now()}.png`; a.href = $('qrCanvas').toDataURL('image/png'); a.click(); }
