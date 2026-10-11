@@ -75,6 +75,7 @@ function setModule(module) {
   $('scannerModule').setAttribute('aria-selected', scanner); $('generatorModule').setAttribute('aria-selected', !scanner);
   $('scannerSection').hidden = !scanner; $('generatorSection').hidden = scanner;
   if (scanner) { $('cameraPanel').hidden = false; $('uploadPanel').hidden = true; $('resultPanel').hidden = true; }
+  else if (!$('qrInput').value.trim()) { $('qrInput').value = 'https://smartqr.app'; $('characterCount').textContent = `${$('qrInput').value.length} / 3000`; generateQrCode(); }
 }
 function generateQrCode() {
   const value = $('qrInput').value.trim(); const status = $('generatorStatus');
