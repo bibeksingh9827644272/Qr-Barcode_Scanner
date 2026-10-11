@@ -2,7 +2,7 @@ const $ = (id) => document.getElementById(id);
 const video = $('video');
 const canvas = $('canvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
-const HISTORY_KEY = 'scanly-history-v1';
+const HISTORY_KEY = 'smartqr-history-v1';
 let stream = null;
 let scanTimer = null;
 let currentValue = '';
@@ -11,6 +11,7 @@ let scanCount = 0;
 let lastScanTick = performance.now();
 let lastValue = '';
 let duplicateBlockedUntil = 0;
+let qrCode = null;
 
 const getHistory = () => { try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch { return []; } };
 const saveHistory = (items) => localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(0, 20)));
@@ -65,8 +66,26 @@ async function decodeFile(file) {
 }
 async function copyText(value, button = $('copyResult')) { try { await navigator.clipboard.writeText(value); const old = button.textContent; button.textContent = 'Copied!'; setTimeout(() => button.textContent = old, 1500); } catch { showError('Copy is unavailable in this browser.'); } }
 async function shareResult() { if (!currentValue) return; if (navigator.share) { try { await navigator.share({ title: 'Scanned QR code', text: currentValue }); } catch {} } else copyText(currentValue, $('shareResult')); }
-function downloadResult() { const blob = new Blob([currentValue], { type: 'text/plain;charset=utf-8' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `scanly-result-${Date.now()}.txt`; a.click(); URL.revokeObjectURL(a.href); }
+function downloadResult() { const blob = new Blob([currentValue], { type: 'text/plain;charset=utf-8' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `smartqr-result-${Date.now()}.txt`; a.click(); URL.revokeObjectURL(a.href); }
 
-$('startCamera').addEventListener('click', startCamera); $('stopCamera').addEventListener('click', () => { stopCamera(); $('cameraPlaceholder').hidden = false; }); $('switchCamera').addEventListener('click', switchCamera); $('toggleTorch').addEventListener('click', toggleTorch); $('cameraMode').addEventListener('click', () => activateMode('camera')); $('uploadMode').addEventListener('click', () => activateMode('upload')); $('fileInput').addEventListener('change', e => decodeFile(e.target.files[0]));
+function setModule(module) {
+  const scanner = module === 'scanner';
+  if (!scanner) stopCamera();
+  $('scannerModule').classList.toggle('active', scanner); $('generatorModule').classList.toggle('active', !scanner);
+  $('scannerModule').setAttribute('aria-selected', scanner); $('generatorModule').setAttribute('aria-selected', !scanner);
+  $('scannerSection').hidden = !scanner; $('generatorSection').hidden = scanner;
+  if (scanner) { $('cameraPanel').hidden = false; $('uploadPanel').hidden = true; $('resultPanel').hidden = true; }
+}
+function generateQrCode() {
+  const value = $('qrInput').value.trim(); const status = $('generatorStatus');
+  if (!value) { status.textContent = 'Add some text or a link first.'; status.className = 'generator-status warning'; return; }
+  if (!window.QRious) { status.textContent = 'Generator is still loading. Try again in a moment.'; status.className = 'generator-status warning'; return; }
+  const size = Number($('qrSize').value); qrCode = new QRious({ element: $('qrCanvas'), value, size, level: 'H', foreground: $('qrForeground').value, background: $('qrBackground').value, padding: 12 });
+  $('qrEmpty').hidden = true; $('downloadQr').disabled = false; $('copyQrText').disabled = false; status.textContent = 'Your QR code is ready to share.'; status.className = 'generator-status success';
+}
+function downloadQrCode() { if (!qrCode) return; const a = document.createElement('a'); a.download = `smartqr-${Date.now()}.png`; a.href = $('qrCanvas').toDataURL('image/png'); a.click(); }
+
+$('scannerModule').addEventListener('click', () => setModule('scanner')); $('generatorModule').addEventListener('click', () => setModule('generator')); $('startCamera').addEventListener('click', startCamera); $('stopCamera').addEventListener('click', () => { stopCamera(); $('cameraPlaceholder').hidden = false; }); $('switchCamera').addEventListener('click', switchCamera); $('toggleTorch').addEventListener('click', toggleTorch); $('cameraMode').addEventListener('click', () => activateMode('camera')); $('uploadMode').addEventListener('click', () => activateMode('upload')); $('fileInput').addEventListener('change', e => decodeFile(e.target.files[0]));
 $('dropZone').addEventListener('dragover', e => { e.preventDefault(); $('dropZone').classList.add('dragover'); }); $('dropZone').addEventListener('dragleave', () => $('dropZone').classList.remove('dragover')); $('dropZone').addEventListener('drop', e => { e.preventDefault(); $('dropZone').classList.remove('dragover'); decodeFile(e.dataTransfer.files[0]); });
 $('clearImage').addEventListener('click', () => { $('fileInput').value = ''; $('imagePreview').hidden = true; $('dropZone').hidden = false; clearError(); }); $('scanAgain').addEventListener('click', () => { $('fileInput').value = ''; $('imagePreview').hidden = true; $('dropZone').hidden = false; resetScanner(); }); $('copyResult').addEventListener('click', () => copyText(currentValue)); $('shareResult').addEventListener('click', shareResult); $('downloadResult').addEventListener('click', downloadResult); $('clearHistory').addEventListener('click', () => { localStorage.removeItem(HISTORY_KEY); renderHistory(); }); window.addEventListener('pagehide', stopCamera); renderHistory();
+$('generateQr').addEventListener('click', generateQrCode); $('downloadQr').addEventListener('click', downloadQrCode); $('copyQrText').addEventListener('click', () => copyText($('qrInput').value, $('copyQrText'))); $('qrSize').addEventListener('input', () => { $('sizeValue').textContent = `${$('qrSize').value}px`; if (qrCode) generateQrCode(); }); $('qrForeground').addEventListener('input', () => { if (qrCode) generateQrCode(); }); $('qrBackground').addEventListener('input', () => { if (qrCode) generateQrCode(); }); document.querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => { $('qrInput').value = chip.dataset.example; generateQrCode(); })); window.addEventListener('pagehide', stopCamera); renderHistory();
