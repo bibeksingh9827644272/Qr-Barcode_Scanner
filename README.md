@@ -1,45 +1,76 @@
-# SmartQR — by Bibek Singh
+# SmartQR — Smart QR Code Toolkit
 
-SmartQR is a modern, privacy-first QR toolkit for scanning and generating QR codes directly in the browser.
+**Developed by Bibek Singh**
 
-It works as both a responsive **website** and an installable **app-style PWA**. On supported browsers, use the **Install app** button or the browser's install option to add SmartQR to your home screen. The app shell is cached for offline launch; camera scanning and external QR libraries still require the relevant browser/device capabilities.
+SmartQR is a modern, privacy-focused QR code toolkit that enables users to scan, generate, customize, and download QR codes directly in their browser. It features a responsive interface and Progressive Web App (PWA) support for a seamless experience across desktop and mobile devices.
 
-## Features
+## 🚀 Live Demo
 
-### Scan QR
+**[ SmartQR]([https://your-github-username.github.io/SmartQR/](https://smartqrcodescaner.netlify.app)**
 
-- Live camera scanning with automatic detection
-- Front/rear camera switching and flashlight support where available
-- Optimized frame processing and duplicate-scan prevention
-- Upload and drag-and-drop image scanning
-- Smart result classification for links, Wi-Fi, contacts, email, phone, and text
-- Open, copy, share, or download scan results
-- Local recent scan history
+## ✨ Features
 
-### Generate QR
+- **QR Code Scanner:** Scan QR codes using your camera in real time.
+- **Image Scanning:** Upload or drag and drop images to decode QR codes.
+- **QR Code Generator:** Generate codes for text, URLs, Wi-Fi, email, and contact details.
+- **Customization:** Adjust QR code colors, background colors, and output size.
+- **Download and Share:** Download QR codes as PNG images and copy or share results.
+- **Scan History:** Access recent scans stored locally.
+- **Privacy-Focused:** Process QR content directly in the browser without an application backend.
+- **PWA Support:** Install SmartQR on supported devices and launch the cached application shell offline.
 
-- Generate QR codes from arbitrary text, long links, Wi-Fi strings, email content, and contact details
-- Supports up to 3,000 characters with a clear capacity warning
-- Preset examples for Website, Wi-Fi, and Email
-- Custom QR and background colors
-- Adjustable output size from 180px to 640px
-- High-error-correction output suitable for sharing and printing
-- Download as PNG or copy the original content
+## 🛠️ Technologies Used
 
-### Image upload
+- HTML5
+- CSS3
+- JavaScript
+- jsQR
+- QRious
+- Progressive Web App (PWA)
+- Browser APIs
 
-The Scan QR → Upload image mode includes a dedicated **Choose image** button as well as drag-and-drop. It accepts PNG, JPG, WEBP, and GIF images up to 10 MB and decodes them locally.
+## 💻 Run Locally
 
-## Privacy
+**. Clone the repository**
 
-Camera frames, uploaded images, and generated data are processed locally in the browser. No application backend receives your content. The jsQR and QRious libraries are bundled locally so the installed app can generate and scan without waiting for a CDN.
+```bash
+git clone https://github.com/your-github-username/SmartQR.git
+```
 
-## Run locally
+**. Navigate to the project folder**
 
-Camera access requires a secure context. Start a local HTTP server:
+```bash
+cd SmartQR
+```
+
+**3. Start the local server**
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+
+
+## 🔒 Privacy
+
+SmartQR processes QR generation and image decoding locally in the browser. Camera frames and uploaded images are not sent to an application backend. Some features depend on browser and device support.
+
+## 🎯 Project Objective
+
+To develop a user-friendly, responsive, and privacy-focused QR toolkit that combines QR code scanning, generation, customization, and PWA functionality in one application.
+
+## 🔮 Future Enhancements
+
+- Batch QR code generation and scanning.
+- Exportable scan history.
+- Custom QR templates and branding.
+- Improved accessibility and multilingual support.
+
+## 👨‍💻 Author
+
+**Bibek Singh**
+
+- Live Demo: [Try SmartQR]([https://your-github-username.github.io/SmartQR/](https://smartqrcodescaner.netlify.app)
+
+
+**SmartQR — Scan Smart. Generate Fast. Stay Private.**
