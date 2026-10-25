@@ -6,7 +6,7 @@ SmartQR is a modern, privacy-focused QR code toolkit that enables users to scan,
 
 ## 🚀 Live Demo
 
-**[ SmartQR]([https://your-github-username.github.io/SmartQR/](https://smartqrcodescaner.netlify.app)**
+**[ SmartQR](https://qr-barcodescanner.vercel.app/)**
 
 ## ✨ Features
 
@@ -70,7 +70,7 @@ To develop a user-friendly, responsive, and privacy-focused QR toolkit that comb
 
 **Bibek Singh**
 
-- Live Demo: [Try SmartQR]([https://your-github-username.github.io/SmartQR/](https://smartqrcodescaner.netlify.app)
+- Live Demo: [Try Smart-QR-Scanner](https://qr-barcodescanner.vercel.app/)
 
 
 **SmartQR — Scan Smart. Generate Fast. Stay Private.**
